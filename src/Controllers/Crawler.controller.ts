@@ -3,9 +3,12 @@ import puppeteer from 'puppeteer';
 import {Request, Response} from 'express';
 
 export default class Crawler {
-  async getInfoMeetAChef(req: Request, res: Response) {
-    const chefs = {};
+  chefs: {};
+  constructor() {
+    this.chefs = {};
+  }
 
+  getInfoMeetAChef = async (req: Request, res: Response) => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     const url = 'https://meetachef.com/chefs';
