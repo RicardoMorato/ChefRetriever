@@ -3,7 +3,9 @@ import puppeteer from 'puppeteer';
 import {Request, Response} from 'express';
 
 export default class Crawler {
-  getChefName = async () => {
+  async getInfoMeetAChef(req: Request, res: Response) {
+    const chefs = {};
+
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     const url = 'https://meetachef.com/chefs';
@@ -25,20 +27,6 @@ export default class Crawler {
 
       return name;
     });
-
-    return chefName;
-  }
-
-  getInfoMeetAChef = async (req: Request, res: Response) => {
-    const chefs = {};
-
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    const url = 'https://meetachef.com/chefs';
-
-    await page.goto(url);
-
-    const chefName = await this.getChefName();
 
     const chefSpecialty = await page.evaluate(() => {
       const motherDiv = document.querySelector(
