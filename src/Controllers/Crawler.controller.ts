@@ -62,24 +62,27 @@ export default class Crawler {
       return (bio as Element).innerHTML;
     });
 
-    const aux = await page.evaluate(() => {
-      const arrayOfImages = document.querySelectorAll(
-          'img.Styled__ListingImg-sc-1nslgi0-2.gDcilC',
+    const chefLocation = await page.evaluate(() => {
+      const motherDiv = document.querySelector(
+          '.HomePageComponents__BaseDiv-sc-13amrf6-6.jDqYnR',
       );
 
-      const returner: Array<Element> = [];
+      const card = motherDiv?.querySelector(
+          '.Styled__ListingInfoContainer-sc-1nslgi0-5.iktAgy',
+      );
 
-      for (let index = 0; index < arrayOfImages.length; index++) {
-        returner.push(arrayOfImages[index].src);
-      }
+      const location = card?.querySelector(
+          '.Styled__LocationNameSpan-sc-1nslgi0-10.cAUUyt',
+      )?.innerHTML;
 
-      return returner;
+      return location;
     });
 
     console.log(chefName);
+    console.log(chefLocation);
     console.log(chefSpecialty);
     console.log(chefBio);
 
-    res.json(aux);
+    res.json({a: 'a'});
   };
 }
