@@ -1573,6 +1573,11 @@ punycode@^2.1.0:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
+puppeteer-autoscroll-down@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/puppeteer-autoscroll-down/-/puppeteer-autoscroll-down-0.1.6.tgz#db5388ac3c14c9079a63c221265b05b306266e88"
+  integrity sha512-U/hJ5CnVikfq682LmGrUB7Q3ext6oJbVvOfTPay1Uq4AhvaHfA1Q2bf4UE0DT5QgaHrk/EeEZPeDwBHgjw7ZqQ==
+
 puppeteer@^5.3.1:
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-5.3.1.tgz#324e190d89f25ac33dba539f57b82a18553f8646"
