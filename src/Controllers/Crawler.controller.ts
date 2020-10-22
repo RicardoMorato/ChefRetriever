@@ -2,16 +2,13 @@
 import puppeteer from 'puppeteer';
 import {Request, Response} from 'express';
 
+const scrollPageToBottom = require('puppeteer-autoscroll-down');
+
 export default class Crawler {
   chefs: {};
   constructor() {
     this.chefs = {};
   }
-
-  // TODO:
-  // Selecionar TODOS os cards de chefs da motherDiv.
-  // Após isso, fazer um FOR que irá percorrer cada um deles e
-  // retirar as informações que são necessárias.
 
   chefConstructor = (
       name: string,
@@ -34,7 +31,14 @@ export default class Crawler {
     const page = await browser.newPage();
     const url = 'https://meetachef.com/chefs';
 
-    await page.goto(url);
+    await page.goto(url, {waitUntil: 'load'});
+
+    await page.evaluate((_) => {
+      window.scrollTo(0, 0);
+    });
+
+    // Scroll to the bottom of the page with puppeteer-autoscroll-down
+    await scrollPageToBottom(page);
 
     const chefs = await page.evaluate(() => {
       const chefs = [];
@@ -68,11 +72,16 @@ export default class Crawler {
               '.Styled__LocationNameSpan-sc-1nslgi0-10.cAUUyt',
           )?.innerHTML;
 
+          const chefImage = arrayOfCards[index]?.querySelector(
+              '.Styled__ListingImg-sc-1nslgi0-2.gDcilC',
+          )?.src;
+
           const currentChef = {
             Name: chefName,
             Specialty: chefSpecialty,
             Bio: chefBio,
             Location: chefLocation,
+            Image: chefImage,
           };
           chefs.push(currentChef);
         }
