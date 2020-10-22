@@ -14,6 +14,6 @@ routes.get('/', (req, res) => {
   });
 });
 
-routes.get('/chef-image', crawlerController.getInfoMeetAChef);
+routes.get('/meet-a-chef', crawlerController.getInfoMeetAChef);
 
 export default routes;
