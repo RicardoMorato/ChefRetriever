@@ -8,6 +8,11 @@ export default class Crawler {
     this.chefs = {};
   }
 
+  // TODO:
+  // Selecionar TODOS os cards de chefs da motherDiv.
+  // Após isso, fazer um FOR que irá percorrer cada um deles e
+  // retirar as informações que são necessárias.
+
   chefConstructor = (
       name: string,
       location: string,
@@ -30,6 +35,31 @@ export default class Crawler {
     const url = 'https://meetachef.com/chefs';
 
     await page.goto(url);
+
+    const aux = await page.evaluate(() => {
+      const chefs = [];
+
+      const motherDiv = document.querySelector(
+          '.HomePageComponents__BaseDiv-sc-13amrf6-6.jDqYnR',
+      );
+
+      const arrayOfCards = motherDiv?.querySelectorAll(
+          'a.Styled__ListingCardContainer-sc-1nslgi0-0.htwOKc',
+      );
+
+      const arrayLength = arrayOfCards?.length;
+
+      for (let index = 0; index < arrayLength; index++) {
+        const chefName = arrayOfCards[index]?.querySelector(
+            '.Styled__ListingHeadingH2-sc-1nslgi0-6.khsIQU',
+        )?.innerHTML;
+
+        const currentChef = {name: chefName};
+        chefs.push(currentChef);
+      }
+
+      return chefs;
+    });
 
     const chefName = await page.evaluate(() => {
       const motherDiv = document.querySelector(
@@ -96,6 +126,8 @@ export default class Crawler {
 
       return location;
     });
+
+    console.log(aux);
 
     const chef = this.chefConstructor(
         chefName,
