@@ -8,6 +8,22 @@ export default class Crawler {
     this.chefs = {};
   }
 
+  chefConstructor = (
+      name: string,
+      location: string,
+      specialty: string,
+      bio: string,
+  ) => {
+    const chef = {
+      name,
+      location,
+      specialty,
+      bio,
+    };
+
+    return chef;
+  }
+
   getInfoMeetAChef = async (req: Request, res: Response) => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -81,11 +97,13 @@ export default class Crawler {
       return location;
     });
 
-    console.log(chefName);
-    console.log(chefLocation);
-    console.log(chefSpecialty);
-    console.log(chefBio);
+    const chef = this.chefConstructor(
+        chefName,
+        chefLocation,
+        chefSpecialty,
+        chefBio,
+    );
 
-    res.json({a: 'a'});
+    res.json(chef);
   };
 }
